@@ -216,9 +216,9 @@ class RosVideoWriter(Node):
             if msg_encoding.find('mono8') != -1:
                 pix_fmt = 'gray'
                 msg_fmt = 'bgr8'
-            elif msg_encoding.find('8UC1') != -1:
-                pix_fmt = 'gray'
-                msg_fmt = 'bgr8'
+            # elif msg_encoding.find('8UC1') != -1:
+            #     pix_fmt = 'gray'
+            #     msg_fmt = 'bgr8'
             elif msg_encoding.find("bgra") != -1:
                 pix_fmt = 'bgra'
                 msg_fmt = 'bgr8'
@@ -230,13 +230,17 @@ class RosVideoWriter(Node):
                 msg_fmt = 'bayer_bggr8'
             elif msg_encoding.find('rggb8') != -1:
                 pix_fmt = 'bayer_rggb8'
-                msg_fmt = 'bayer_bggr8'
+                msg_fmt = 'bayer_rggb8'
             elif msg_encoding.find('rgb8') != -1:
                 pix_fmt = 'rgb24'
                 msg_fmt = 'bgr8'
             elif msg_encoding.find('16UC1') != -1:
                 pix_fmt = 'gray16le'
                 msg_fmt = 'mono16'
+            elif msg_encoding.find('8UC1') != -1:
+                pix_fmp = 'gray8le'
+                msg_fmp = 'mono8'
+
             else:
                 print('Unsupported encoding:', msg_encoding, topic)
                 exit(1)
@@ -329,8 +333,8 @@ class RosVideoWriter(Node):
                                    self.opt_out_file,
                                    '-y'])
             p1.communicate()
-            args = ('rm', '*.png')
-            p2 = subprocess.call('%s %s' % args, shell=True)
+            # args = ('rm', '*.png')
+            # p2 = subprocess.call('%s %s' % args, shell=True)
             print('Writing to output file, ' + self.opt_out_file)
             sys.exit()
         else:
